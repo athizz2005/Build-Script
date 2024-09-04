@@ -4,6 +4,7 @@
 CONFIG_LUNCH=""
 CONFIG_OFFICIAL_FLAG=""
 CONFIG_TARGET="bacon"
+CONFIG_BUILD_TYPE="b"
 
 # Telegram Configuration
 CONFIG_CHATID="-"
@@ -262,12 +263,12 @@ echo -e "$BOLD_GREEN\nSetting up the build environment...$RESET"
 source build/envsetup.sh
 
 echo -e "$BOLD_GREEN\nStarting to lunch "$DEVICE" now...$RESET"
-lunch "$CONFIG_LUNCH"
+riseup $DEVICE
 
 if [ $? -eq 0 ]; then
     echo -e "$BOLD_GREEN\nStarting to build now...$RESET"
     m installclean -j$CONFIG_COMPILE_JOBS
-    m "$CONFIG_TARGET" -j$CONFIG_COMPILE_JOBS 2>&1 | tee -a "$ROOT_DIRECTORY/build.log" &
+    rise $CONFIG_BUILD_TYPE | tee -a "$ROOT_DIRECTORY/build.log" &
 else
     echo -e "$RED\nFailed to lunch "$DEVICE"$RESET"
 

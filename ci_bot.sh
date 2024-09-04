@@ -328,9 +328,6 @@ if [ -s "out/error.log" ]; then
     send_file_to_error_chat "out/error.log" "$CONFIG_ERROR_CHATID"
 #     send_sticker "$STICKER_URL" "$CONFIG_CHATID"
 else
-    ota_file=$(ls "$OUT"/*ota*.zip | tail -n -1)
-    rm "$ota_file"
-
     zip_file=$(ls "$OUT"/*$DEVICE*.zip | tail -n -1)
 
     echo -e "$BOLD_GREEN\nStarting to upload the ZIP file now...$RESET\n"

@@ -329,10 +329,14 @@ if [ -s "out/error.log" ]; then
 #     send_sticker "$STICKER_URL" "$CONFIG_CHATID"
 else
     zip_file=$(ls "$OUT"/*$DEVICE*.zip | tail -n -1)
+    recovery=$(ls "$OUT"/recovery.img | tail -n -2)
+    vendor_boot=$(ls "$OUT"/vendor_boot.img | tail -n -3)
 
     echo -e "$BOLD_GREEN\nStarting to upload the ZIP file now...$RESET\n"
 
     zip_file_url=$(upload_file "$zip_file")
+    recovery_url=$(upload_file "$recovery")
+    vendorboot_url=$(upload_file "$vendor_boot")
     zip_file_md5sum=$(md5sum $zip_file | awk '{print $1}')
     zip_file_size=$(ls -sh $zip_file | awk '{print $1}')
 
@@ -344,6 +348,8 @@ else
 <b>• SIZE:</b> <code>$zip_file_size</code>
 <b>• MD5SUM:</b> <code>$zip_file_md5sum</code>
 <b>• DOWNLOAD:</b> $zip_file_url
+<b>• RECOVERY:</b> $recovery_url
+<b>• VENDORBOOT:</b> $vendorboot_url
 
 <i>Compilation took $HOURS hours(s) and $MINUTES minutes(s)</i>"
 
